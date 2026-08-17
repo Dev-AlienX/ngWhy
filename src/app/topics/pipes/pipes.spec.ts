@@ -19,4 +19,9 @@ describe('Pipes', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render markdown content', () => {
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('Pipes');
+  });
 });

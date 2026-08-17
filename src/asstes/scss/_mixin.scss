@@ -1,0 +1,91 @@
+// projects/shared-styles/src/lib/_mixins.scss
+
+// ==========================================================================
+// 1. The Vintage Card
+// ==========================================================================
+@mixin vintage-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--accent-secondary); // The Oxblood edge
+  border-radius: 6px;
+  padding: 2rem 2.5rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-left-color: var(--accent-primary); // Turns to Brass on hover
+    border-color: var(--border-focus);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35); // Deep shadow
+  }
+}
+
+// ==========================================================================
+// 2. The Primary Action Button
+// ==========================================================================
+@mixin vintage-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--accent-primary); // Brass
+  color: var(--bg-app); // Asphalt (High contrast)
+  border: none;
+  padding: 0.75rem 1.75rem;
+  border-radius: 4px;
+  
+  font-family: var(--font-family-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  cursor: pointer;
+  
+  transition: background-color 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    background-color: var(--accent-hover);
+  }
+  
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// ==========================================================================
+// 3. The Tech Badge / Tag
+// ==========================================================================
+@mixin vintage-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-family-code);
+  font-size: 0.8rem;
+  color: var(--accent-primary);
+  background: var(--glow-primary); // Subtle brass glow
+  padding: 0.3rem 0.75rem;
+  border-radius: 4px;
+}
+
+// ==========================================================================
+// 4. Code Preview Box
+// ==========================================================================
+@mixin vintage-code-box {
+  background-color: #161614; // Slightly darker than surface for contrast
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  font-family: var(--font-family-code);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  overflow-x: auto;
+}
+
+// ==========================================================================
+// 5. Typography Helpers
+// ==========================================================================
+@mixin heading-primary {
+  font-family: var(--font-family-heading);
+  color: var(--text-primary);
+  font-size: clamp(2rem, 5vw, 3rem); // Responsive scaling
+  letter-spacing: -0.5px;
+  margin-bottom: 0.5rem;
+}

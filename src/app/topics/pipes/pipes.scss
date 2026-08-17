@@ -1,0 +1,58 @@
+:host {
+  display: block;
+  padding: 1.5rem;
+}
+
+.markdown-content {
+  color: #1f2937;
+  line-height: 1.7;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 1.25rem 0 0.75rem;
+    color: #111827;
+  }
+
+  p,
+  ul,
+  ol,
+  table,
+  pre,
+  blockquote {
+    margin: 0 0 1rem;
+  }
+
+  code {
+    background: #f3f4f6;
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
+  }
+
+  pre {
+    background: #111827;
+    color: #f9fafb;
+    padding: 1rem;
+    overflow-x: auto;
+    border-radius: 8px;
+  }
+
+  a {
+    color: #2563eb;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    border: 1px solid #d1d5db;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+  }
+}

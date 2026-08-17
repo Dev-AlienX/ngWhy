@@ -1,0 +1,6 @@
+@use '../asstes/scss/var' as *;
+
+.header {
+  background-color: $bg-app;
+  color: $text-primary;
+}

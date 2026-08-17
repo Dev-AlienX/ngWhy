@@ -1,1 +1,428 @@
-<p>pipes works!</p>
+<article class="markdown-content">
+  <div class="tutorial-content">
+  <h2>Pipes</h2>
+
+  <h3>Overview</h3>
+  <p>
+    Pipes are special operators in Angular template expressions that allow you to transform data declaratively in your template. Pipes let you declare a transformation function once and then use that transformation across multiple templates. Angular pipes use the vertical bar character (<code inlineCode >|</code>), inspired by the <a href="https://en.wikipedia.org/wiki/Pipeline_(Unix)" target="_blank" class="vintage-link">Unix pipe</a>.
+  </p>
+
+  <div class="vintage-note">
+    <strong>NOTE:</strong> Angular's pipe syntax deviates from standard JavaScript, which uses the vertical bar character for the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_OR" target="_blank" class="vintage-link">bitwise OR operator</a>. Angular template expressions do not support bitwise operators.
+  </div>
+
+  <p>Here is an example using some built-in pipes that Angular provides:</p>
+
+  <!-- CODE SNIPPET: angular-ts (ShoppingCart) -->
+  <!-- <pre><code inlineCode >{{ snippits.exampleBuiltInPipe }}</code></pre> -->
+  <app-code-renderer [code]="snippits.exampleBuiltInPipe" language="typeScript"></app-code-renderer>
+
+  <p>When Angular renders the component, it will ensure that the appropriate date format and currency are based on the locale of the user. If the user is in the United States, it would render:</p>
+
+  <!-- CODE SNIPPET: angular-html -->
+  <!-- <pre><code class="language-html">&lt;main&gt;
+  &lt;h1&gt;Purchases from Acme Corporation on Jul 8, 2024&lt;/h1&gt;
+  &lt;p&gt;Total: $123.45&lt;/p&gt;
+&lt;/main&gt;</code></pre> -->
+<app-code-renderer [code]="snippits.exampleOutput" language="html"></app-code-renderer>
+
+  <p>See the <a href="/guide/i18n" class="vintage-link">in-depth guide on i18n</a> to learn more about how Angular localizes values.</p>
+
+  <h4>Built-in Pipes</h4>
+  <p>Angular includes a set of built-in pipes in the <code inlineCode >@angular/common</code> package:</p>
+
+  <div class="table-responsive">
+    <table class="vintage-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code inlineCode>AsyncPipe</code></td>
+          <td>Read the value from a <code inlineCode>Promise</code> or an RxJS <code inlineCode >Observable</code>.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode>CurrencyPipe</code></td>
+          <td>Transforms a number to a currency string, formatted according to locale rules.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode>DatePipe</code></td>
+          <td>Formats a <code inlineCode >Date</code> value according to locale rules.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode>DecimalPipe</code></td>
+          <td>Transforms a number into a string with a decimal point, formatted according to locale rules.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode >I18nPluralPipe</code></td>
+          <td>Maps a value to a string that pluralizes the value according to locale rules.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode >I18nSelectPipe</code></td>
+          <td>Maps a key to a custom selector that returns a desired value.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode >JsonPipe</code></td>
+          <td>Transforms an object to a string representation via <code inlineCode >JSON.stringify</code>, intended for debugging.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode >KeyValuePipe</code></td>
+          <td>Transforms Object or Map into an array of key value pairs.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode >LowerCasePipe</code></td>
+          <td>Transforms text to all lower case.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode >PercentPipe</code></td>
+          <td>Transforms a number to a percentage string, formatted according to locale rules.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode >SlicePipe</code></td>
+          <td>Creates a new Array or String containing a subset (slice) of the elements.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode >TitleCasePipe</code></td>
+          <td>Transforms text to title case.</td>
+        </tr>
+        <tr>
+          <td><code inlineCode >UpperCasePipe</code></td>
+          <td>Transforms text to all upper case.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Using pipes</h3>
+  <p>Angular's pipe operator uses the vertical bar character (<code inlineCode >|</code>), within a template expression. The pipe operator is a binary operator– the left-hand operand is the value passed to the transformation function, and the right side operand is the name of the pipe and any additional arguments (described below).</p>
+
+  <!-- CODE SNIPPET: angular-html -->
+  <!-- <pre><code class="language-html">&lt;p&gt;Total: {{ amount | currency }}&lt;/p&gt;</code></pre> -->
+  <app-code-renderer [code]="snippits.usingpipes" language="html"></app-code-renderer>
+
+  <p>In this example, the value of <code inlineCode >amount</code> is passed into the <code inlineCode >CurrencyPipe</code> where the pipe name is <code inlineCode >currency</code>. It then renders the default currency for the user’s locale.</p>
+
+  <h4>Combining multiple pipes in the same expression</h4>
+  <p>You can apply multiple transformations to a value by using multiple pipe operators. Angular runs the pipes from left to right.</p>
+
+  <p>The following example demonstrates a combination of pipes to display a localized date in all uppercase:</p>
+
+  <!-- CODE SNIPPET: angular-html -->
+  <!-- <pre><code class="language-html">&lt;p&gt;The event will occur on {{ scheduledOn | date | uppercase }}.&lt;/p&gt;</code></pre> -->
+    <app-code-renderer [code]="snippits.displayLocalizeddate" language="html"></app-code-renderer>
+
+  <h4>Passing parameters to pipes</h4>
+  <p>Some pipes accept parameters to configure the transformation. To specify a parameter, append the pipe name with a colon (<code inlineCode >:</code>) followed by the parameter value.</p>
+
+  <p>For example, the <code inlineCode >DatePipe</code> is able to take parameters to format the date in a specific way.</p>
+
+  <!-- CODE SNIPPET: angular-html -->
+  <!-- <pre><code class="language-html">&lt;p&gt;The event will occur at {{ scheduledOn | date: 'hh:mm' }}.&lt;/p&gt;</code></pre> -->
+<app-code-renderer [code]="snippits.formatthedate" language="html"></app-code-renderer>
+
+  <p>Some pipes may accept multiple parameters. You can specify additional parameter values separated by the colon character (<code inlineCode >:</code>).</p>
+
+  <p>For example, we can also pass a second optional parameter to control the timezone.</p>
+
+  <!-- CODE SNIPPET: angular-html -->
+  <!-- <pre><code class="language-html">&lt;p&gt;The event will occur at {{ scheduledOn | date: 'hh:mm' : 'UTC' }}.&lt;/p&gt;</code></pre> -->
+  <app-code-renderer [code]="snippits.controlthetimezone" language="html"></app-code-renderer>
+
+  <h3>How pipes work</h3>
+  <p>Conceptually, pipes are functions that accept an input value and return a transformed value.</p>
+
+  <!-- CODE SNIPPET: angular-ts -->
+  <!-- <pre><code class="language-typescript">import {Component} from '@angular/core';
+import {CurrencyPipe} from '@angular/common';
+
+@Component({
+  selector: 'app-root',
+  imports: [CurrencyPipe],
+  template: `
+    <main>
+      <p>Total: {{ amount | currency }}</p>
+    </main>
+  `,
+})
+export class AppComponent {
+  amount = 123.45;
+}</code></pre> -->
+<app-code-renderer [code]="snippits.Howpipeswork" language="typeScript"></app-code-renderer>
+
+  <p>In this example:</p>
+  <ol>
+    <li><code inlineCode >CurrencyPipe</code> is imported from <code inlineCode >@angular/common</code></li>
+    <li><code inlineCode >CurrencyPipe</code> is added to the <code inlineCode >imports</code> array</li>
+    <li>The <code inlineCode >amount</code> data is passed to the <code inlineCode >currency</code> pipe</li>
+  </ol>
+
+  <h4>Pipe operator precedence</h4>
+  <p>The pipe operator has lower precedence than other binary operators, including <code inlineCode >+</code>, <code inlineCode >-</code>, <code inlineCode >*</code>, <code inlineCode >/</code>, <code inlineCode >%</code>, <code inlineCode >&&</code>, <code inlineCode >||</code>, and <code inlineCode >??</code>.</p>
+
+  <!-- CODE SNIPPET: angular-html -->
+  <!-- <pre><code class="language-html">&lt;!-- firstName and lastName are concatenated before the result is passed to the uppercase pipe --&gt;
+{{ firstName + lastName | uppercase }}</code></pre> -->
+<app-code-renderer [code]="snippits.lowerprecedence" language="html"></app-code-renderer>
+
+  <p>The pipe operator has higher precedence than the conditional (ternary) operator.</p>
+
+  <!-- CODE SNIPPET: angular-html -->
+  <!-- <pre><code class="language-html">{{ (isAdmin ? 'Access granted' : 'Access denied') | uppercase }}</code></pre> -->
+<app-code-renderer [code]="snippits.higherprecedence" language="html"></app-code-renderer>
+
+  <p>If the same expression were written without parentheses:</p>
+
+  <!-- CODE SNIPPET: angular-html -->
+  <!-- <pre><code class="language-html">{{ isAdmin ? 'Access granted' : 'Access denied' | uppercase }}</code></pre> -->
+<app-code-renderer [code]="snippits.writtenwithoutparentheses" language="html"></app-code-renderer>
+
+  <p>It will be parsed instead as:</p>
+
+  <!-- CODE SNIPPET: angular-html -->
+  <!-- <pre><code class="language-html">{{ isAdmin ? 'Access granted' : ('Access denied' | uppercase) }}</code></pre> -->
+<app-code-renderer [code]="snippits.parsedinsteadas" language="html"></app-code-renderer>
+
+  <p>Always use parentheses in your expressions when operator precedence may be ambiguous.</p>
+
+  <h4>Change detection with pipes</h4>
+  <p>By default, all pipes are considered <code inlineCode >pure</code>, which means that they only execute when a primitive input value (such as a <code inlineCode >String</code>, <code inlineCode >Number</code>, <code inlineCode >Boolean</code>, or <code inlineCode >Symbol</code>) or an object reference (such as <code inlineCode >Array</code>, <code inlineCode >Object</code>, <code inlineCode >Function</code>, or <code inlineCode >Date</code>) is changed. Pure pipes offer a performance advantage because Angular can avoid calling the transformation function if the passed value has not changed.</p>
+
+  <p>As a result, this means that mutations to object properties or array items are not detected unless the entire object or array reference is replaced with a different instance. If you want this level of change detection, refer to detecting changes within arrays or objects.</p>
+
+  <h3>Creating custom pipes</h3>
+  <p>You can define a custom pipe by implementing a TypeScript class with the <code inlineCode >@Pipe</code> decorator. A pipe must have two things:</p>
+  <ul>
+    <li>A name, specified in the pipe decorator</li>
+    <li>A method named <code inlineCode >transform</code> that performs the value transformation.</li>
+  </ul>
+
+  <p>The TypeScript class should additionally implement the <code inlineCode >PipeTransform</code> interface to ensure that it satisfies the type signature for a pipe.</p>
+
+  <p>Here is an example of a custom pipe that transforms strings to kebab case:</p>
+
+  <!-- CODE SNIPPET: kebab-case.pipe.ts -->
+  <!-- <pre><code class="language-typescript">// kebab-case.pipe.ts
+import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({
+  name: 'kebabCase',
+})
+export class KebabCasePipe implements PipeTransform {
+  transform(value: string): string {
+    return value.toLowerCase().replace(/ /g, '-');
+  }
+}</code></pre> -->
+<app-code-renderer [code]="snippits.custompipe" language="typeScript"></app-code-renderer>
+
+  <h4>Using the <code inlineCode >@Pipe</code> decorator</h4>
+  <p>When creating a custom pipe, import <code inlineCode >Pipe</code> from the <code inlineCode >@angular/core</code> package and use it as a decorator for the TypeScript class.</p>
+
+  <!-- CODE SNIPPET: angular-ts -->
+  <!-- <pre><code class="language-typescript">import {Pipe} from '@angular/core';
+
+@Pipe({
+  name: 'myCustomTransformation',
+})
+export class MyCustomTransformationPipe {}</code></pre> -->
+<app-code-renderer [code]="snippits.custompipeimport" language="typeScript"></app-code-renderer>
+
+  <p>The <code inlineCode >@Pipe</code> decorator requires a <code inlineCode >name</code> that controls how the pipe is used in a template.</p>
+
+  <h4>Naming convention for custom pipes</h4>
+  <p>The naming convention for custom pipes consists of two conventions:</p>
+  <ul>
+    <li><code inlineCode >name</code> - camelCase is recommended. Do not use hyphens.</li>
+    <li><code inlineCode >class name</code> - PascalCase version of the <code inlineCode >name</code> with <code inlineCode >Pipe</code> appended to the end</li>
+  </ul>
+
+  <h4>Implement the <code inlineCode >PipeTransform</code> interface</h4>
+  <p>In addition to the <code inlineCode >@Pipe</code> decorator, custom pipes should always implement the <code inlineCode >PipeTransform</code> interface from <code inlineCode >@angular/core</code>.</p>
+
+  <!-- CODE SNIPPET: angular-ts -->
+  <!-- <pre><code class="language-typescript">import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({
+  name: 'myCustomTransformation',
+})
+export class MyCustomTransformationPipe implements PipeTransform {}</code></pre> -->
+<app-code-renderer [code]="snippits.PipeTransform" language="typeScript"></app-code-renderer>
+
+  <p>Implementing this interface ensures that your pipe class has the correct structure.</p>
+
+  <h4>Transforming the value of a pipe</h4>
+  <p>Every transformation is invoked by the <code inlineCode >transform</code> method with the first parameter being the value being passed in and the return value being the transformed value.</p>
+
+  <!-- CODE SNIPPET: angular-ts -->
+  <!-- <pre><code class="language-typescript">import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({
+  name: 'myCustomTransformation',
+})
+export class MyCustomTransformationPipe implements PipeTransform {
+  transform(value: string): string {
+    return `My custom transformation of ${value}.`;
+  }
+}</code></pre> -->
+<app-code-renderer [code]="snippits.transformation" language="typeScript"></app-code-renderer>
+
+  <h4>Adding parameters to a custom pipe</h4>
+  <p>You can add parameters to your transformation by adding additional parameters to the <code inlineCode >transform</code> method:</p>
+
+  <!-- CODE SNIPPET: angular-ts -->
+  <!-- <pre><code class="language-typescript">import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({
+  name: 'myCustomTransformation',
+})
+export class MyCustomTransformationPipe implements PipeTransform {
+  transform(value: string, format: string): string {
+    let msg = `My custom transformation of ${value}.`;
+
+    if (format === 'uppercase') {
+      return msg.toUpperCase();
+    } else {
+      return msg;
+    }
+  }
+}</code></pre> -->
+<app-code-renderer [code]="snippits.parameterstransformation" language="typeScript"></app-code-renderer>
+
+  <h4>Detecting change within arrays or objects</h4>
+  <p>When you want a pipe to detect changes within arrays or objects, it must be marked as an impure function by passing the <code inlineCode >pure</code> flag with a value of <code inlineCode >false</code>.</p>
+
+  <div class="vintage-warning">
+    <strong>IMPORTANT:</strong> Avoid creating impure pipes unless absolutely necessary, as they can incur a significant performance penalty if used without care.
+  </div>
+
+  <!-- CODE SNIPPET: angular-ts -->
+  <!-- <pre><code class="language-typescript">import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({
+  name: 'joinNamesImpure',
+  pure: false,
+})
+export class JoinNamesImpurePipe implements PipeTransform {
+  transform(names: string[]): string {
+    return names.join();
+  }
+}</code></pre> -->
+<app-code-renderer [code]="snippits.Avoidcreatingimpurepipes" language="typeScript"></app-code-renderer>
+
+  <p>Angular developers often adopt the convention of including <code inlineCode >Impure</code> in the pipe <code inlineCode >name</code> and class name to indicate the potential performance pitfall to other developers.</p>
+
+  <h3>Using pipe logic outside templates</h3>
+  <p>Pipes are template operators designed to transform data declaratively in templates. When you need the same transformation logic in a service, a utility class, or any other non-template context, <strong>avoid injecting the pipe class</strong>. Pipes are not designed as injectable services.</p>
+
+  <h4>Extract the logic from custom pipes</h4>
+  <p>When you create a custom pipe, extract the transformation into a standalone function. Have the pipe's <code inlineCode >transform()</code> method delegate to that function, and import the function directly wherever else you need it.</p>
+
+  <!-- CODE SNIPPET: kebab-case.ts -->
+  <!-- <pre><code class="language-typescript">export function toKebabCase(value: string): string {
+  return value.toLowerCase().replace(/ /g, '-');
+}</code></pre> -->
+<app-code-renderer [code]="snippits.standalonefunction" language="html"></app-code-renderer>
+
+  <!-- CODE SNIPPET: kebab-case.pipe.ts (prefer) -->
+  <!-- <pre><code class="language-typescript">import {Pipe, PipeTransform} from '@angular/core';
+import {toKebabCase} from './kebab-case';
+
+@Pipe({name: 'kebabCase'})
+export class KebabCasePipe implements PipeTransform {
+  transform(value: string): string {
+    return toKebabCase(value);
+  }
+}</code></pre> -->
+<app-code-renderer [code]="snippits.functiondirectlywherever" language="typeScript"></app-code-renderer>
+
+  <!-- CODE SNIPPET: formatter.service.ts (prefer) -->
+  <!-- <pre><code class="language-typescript">import {Service} from '@angular/core';
+import {toKebabCase} from './kebab-case';
+
+@Service()
+export class FormatterService {
+  formatSlug(title: string): string {
+    return toKebabCase(title);
+  }
+}</code></pre> -->
+<app-code-renderer [code]="snippits.functiondirectlywherever2" language="typeScript"></app-code-renderer>
+
+  <!-- CODE SNIPPET: formatter.service.ts (avoid) -->
+  <!-- <pre><code class="language-typescript">import {Service} from '@angular/core';
+import {KebabCasePipe} from './kebab-case.pipe';
+
+@Service()
+export class FormatterService {
+  // Avoid injecting the pipe class into services or other classes.
+  private kebabCasePipe = inject(KebabCasePipe);
+
+  formatSlug(title: string): string {
+    return this.kebabCasePipe.transform(title);
+  }
+}</code></pre> -->
+<app-code-renderer [code]="snippits.functiondirectlywherever3" language="html"></app-code-renderer>
+
+  <h4>Use formatting functions for built-in pipes</h4>
+  <p>Angular's built-in locale-aware pipes each have a corresponding standalone formatting function exported from <code inlineCode >@angular/common</code>. Use these functions instead of injecting the pipe class.</p>
+
+  <div class="table-responsive">
+    <table class="vintage-table">
+      <thead>
+        <tr>
+          <th>Pipe</th>
+          <th>Standalone function</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code inlineCode >DatePipe</code></td>
+          <td><code inlineCode >formatDate</code></td>
+        </tr>
+        <tr>
+          <td><code inlineCode >CurrencyPipe</code></td>
+          <td><code inlineCode >formatCurrency</code></td>
+        </tr>
+        <tr>
+          <td><code inlineCode >DecimalPipe</code></td>
+          <td><code inlineCode >formatNumber</code></td>
+        </tr>
+        <tr>
+          <td><code inlineCode >PercentPipe</code></td>
+          <td><code inlineCode >formatPercent</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CODE SNIPPET: typescript (prefer) -->
+  <!-- <pre><code class="language-typescript">import {Service, LOCALE_ID, inject} from '@angular/core';
+import {formatNumber} from '@angular/common';
+
+@Service()
+export class PriceService {
+  private locale = inject(LOCALE_ID);
+
+  format(value: number) {
+    return formatNumber(value, this.locale, '1.2-2');
+  }
+}</code></pre> -->
+<app-code-renderer [code]="snippits.typescriptprefer" language="typeScript"></app-code-renderer>
+
+  <!-- CODE SNIPPET: typescript (avoid) -->
+  <!-- <pre><code class="language-typescript">import {Service} from '@angular/core';
+import {DecimalPipe} from '@angular/common';
+
+@Service()
+export class PriceService {
+  private decimalPipe = inject(DecimalPipe);
+
+  format(value: number) {
+    return this.decimalPipe.transform(value, '1.2-2');
+  }
+}</code></pre> -->
+<app-code-renderer [code]="snippits.typescriptavoid" language="typeScript"></app-code-renderer>
+
+</div>
+</article>
