@@ -23,14 +23,20 @@ export class CodeRenderer implements OnDestroy {
   links = input<string[]>([]);
   clickableElements: object[] = [];
   private router = inject(Router);
-  @ViewChild('tsCode') tsCode!: ElementRef<HTMLElement>;
+  @ViewChild('tsCode', { static: true }) tsCode!: ElementRef<HTMLElement>;
 
   constructor(private renderer: Renderer2) {}
 
   ngAfterViewInit() {
+    const codeElement = this.tsCode?.nativeElement as HTMLElement | undefined;
+    if (!codeElement) {
+      return;
+    }
+
     hljs.registerLanguage('typescript', typescript);
-    hljs.highlightElement(this.tsCode.nativeElement);
-    const allFunctionSpan = this.tsCode.nativeElement.querySelectorAll('span.function_');
+    hljs.highlightElement(codeElement);
+
+    const allFunctionSpan = codeElement.querySelectorAll('span.function_');
     allFunctionSpan.forEach((span: any) => {
       if (this.links().length > 0) {
         const spanHas = this.links().includes(span.textContent?.trim());
