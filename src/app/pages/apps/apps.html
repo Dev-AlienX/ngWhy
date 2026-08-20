@@ -1,0 +1,15 @@
+<div [ariaLabel]="'Apps'" class="subheader">
+  <h3>Apps</h3>
+  <nav>
+    <ul style="display: flex; flex-direction: row; align-items: flex-end">
+      <li><a [routerLink]="'/apps/toDo'">Tasks</a></li>
+      <!-- <li><a [routerLink]="'/apps/colorPallets'">color Pallets</a></li> -->
+    </ul>
+    <select name="More" id="">
+      <option value=""></option>
+    </select>
+  </nav>
+</div>
+<section class="app-container">
+  <router-outlet></router-outlet>
+</section>

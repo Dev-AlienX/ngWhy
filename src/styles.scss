@@ -1,1 +1,94 @@
+@use './asstes/scss/reset' as reset;
+@use './asstes/scss/var' as var;
+@use './asstes/scss/mixin' as mix;
+
+
+// Import a highlight.js theme for syntax highlighting colors.
+@import 'highlight.js/styles/atom-one-dark.css';
+
 /* You can add global styles to this file, and also import other style files */
+
+/* 3. Modern CSS Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+app-root {
+  isolation: isolate;
+}
+
+body {
+  background-color: var(--color-bg-app);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-body);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 5. Semantic Utility Classes */
+.vintage-link {
+  color: var(--color-accent-primary);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-accent-primary);
+  transition: border-bottom-style 0.2s ease-in-out;
+
+  &:hover {
+    border-bottom-style: solid;
+  }
+}
+
+.vintage-note {
+  background-color: var(--color-bg-surface);
+  padding: 1.25rem;
+  border-left: 4px solid var(--color-accent-primary);
+}
+
+.vintage-warning {
+  background-color: var(--color-bg-surface);
+  padding: 1.25rem;
+  border-left: 4px solid var(--color-accent-secondary);
+}
+
+.vintage-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--color-border-subtle);
+
+  th, td {
+    border: 1px solid var(--color-border-subtle);
+    padding: 0.75rem 1rem;
+    text-align: left;
+  }
+
+  thead {
+    background-color: var(--color-bg-surface);
+    color: var(--color-accent-primary);
+  }
+}

@@ -1,1 +1,38 @@
-<p>sidebar works!</p>
+<ul>
+  @for (item of items; track $index) {
+    <li>
+      <a
+        class="navItems"
+        [routerLink]="item.routerLink"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >{{ item.name | uppercase }}</a
+      >
+      @if (item.subnav) {
+        <ul class="subnav">
+          @for (subItem of item.subnav; track subItem.id) {
+            <li>
+              @if (subItem.type === 'link') {
+                <a
+                  [routerLink]="[item.routerLink, subItem.link]"
+                  class="item"
+                  routerLinkActive="active"
+                  >{{ subItem.name | uppercase }}</a
+                >
+              } @else {
+                <a
+                  [routerLink]="[item.routerLink]"
+                  [fragment]="subItem.link"
+                  class="item"
+                  (click)="scrollToElement(subItem.link)"
+                >
+                  {{ subItem.name | uppercase }}
+                </a>
+              }
+            </li>
+          }
+        </ul>
+      }
+    </li>
+  }
+</ul>

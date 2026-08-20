@@ -1,0 +1,33 @@
+.task-Contaienr {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+
+  .task-input {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    width: 100%;
+
+    #inputTask{
+
+    }
+    .task-input-buttons{
+        
+    }
+  }
+  .main-tasks,
+  .compleated-tasks,
+  .tasks-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  
+}

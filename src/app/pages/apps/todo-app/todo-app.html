@@ -1,0 +1,45 @@
+<div class="task-Contaienr">
+  <section class="task-input">
+    <input type="text" id="inputTask" [(ngModel)]="taskName" />
+    <div class="task-input-buttons">
+      @if (taskLists) {
+        <select name="Select List" [(ngModel)]="selectedList">
+          <option value="All" selected>All</option>
+          @for (item of taskLists; track $index) {
+            <option>{{ item }}</option>
+          }
+        </select>
+      }
+      <button (click)="saveTask()">Add Task</button>
+    </div>
+  </section>
+  <section class="main-tasks">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Compleated</th>
+          <th>listed In</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (task of allTasks(); track task.id) {
+          <tr>
+            <td>{{ task.name }}</td>
+            <td>{{ task.isDone }}</td>
+            <td>{{ task.listedIn }}</td>
+            <td>
+              <button (click)="moveTo(task.id)">move to list</button>
+              <button (click)="isDone(task.id)">Done</button>
+              <button (click)="deleteTask(task.id)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <p>total Task : {{ totalTask() }}</p>
+  </section>
+  <section class="compleated-tasks"></section>
+  <section class="tasks-list"></section>
+</div>

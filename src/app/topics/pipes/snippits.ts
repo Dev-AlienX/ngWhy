@@ -5,7 +5,7 @@ import {CurrencyPipe, DatePipe, TitleCasePipe} from '@angular/common';
 @Component({
   selector: 'app-root',
   imports: [CurrencyPipe, DatePipe, TitleCasePipe],
-  template: &#x60;
+  template: \`
     <main>
       <!-- Transform the company name to title-case and
            transform the purchasedOn date to a locale-formatted string -->
@@ -14,23 +14,23 @@ import {CurrencyPipe, DatePipe, TitleCasePipe} from '@angular/common';
       <!-- Transform the amount to a currency-formatted string -->
       <p>Total: {{ amount | currency }}</p>
     </main>
-  &#x60;,
+  \`,
 })
 export class ShoppingCart {
   amount = 123.45;
   company = 'acme corporation';
   purchasedOn = '2024-07-08';
 }`;
-  exampleOutput = `&lt;main&gt;
-  &lt;h1&gt;Purchases from Acme Corporation on Jul 8, 2024&lt;/h1&gt;
-  &lt;p&gt;Total: $123.45&lt;/p&gt;
-&lt;/main&gt;`;
+  exampleOutput = `<main>
+  <h1>Purchases from Acme Corporation on Jul 8, 2024</h1>
+  <p>Total: $123.45</p>
+</main>`;
 
-  usingpipes = `&lt;p&gt;Total: {{ amount | currency }}&lt;/p&gt;`;
-  displayLocalizeddate = `&lt;p&gt;The event will occur on {{ scheduledOn | date | uppercase }}.&lt;/p&gt;`;
-  formatthedate = `&lt;p&gt;The event will occur at {{ scheduledOn | date: 'hh:mm' }}.&lt;/p&gt;`;
+  usingpipes = `<p>Total: {{ amount | currency }}</p>`;
+  displayLocalizeddate = `<p>The event will occur on {{ scheduledOn | date | uppercase }}.</p>`;
+  formatthedate = `<p>The event will occur at {{ scheduledOn | date: 'hh:mm' }}.</p>`;
 
-  controlthetimezone = `&lt;p&gt;The event will occur at {{ scheduledOn | date: 'hh:mm' : 'UTC' }}.&lt;/p&gt;`;
+  controlthetimezone = `<p>The event will occur at {{ scheduledOn | date: 'hh:mm' : 'UTC' }}.</p>`;
 
   Howpipeswork = `import {Component} from '@angular/core';
 import {CurrencyPipe} from '@angular/common';
@@ -38,16 +38,16 @@ import {CurrencyPipe} from '@angular/common';
 @Component({
   selector: 'app-root',
   imports: [CurrencyPipe],
-  template:  &#x60;
+  template:  \`
     <main>
       <p>Total: {{ amount | currency }}</p>
     </main>
-   &#x60;,
+   \`,
 })
 export class AppComponent {
   amount = 123.45;
 }`;
-lowerprecedence = `&lt;!-- firstName and lastName are concatenated before the result is passed to the uppercase pipe --&gt;
+lowerprecedence = `<!-- firstName and lastName are concatenated before the result is passed to the uppercase pipe -->
 {{ firstName + lastName | uppercase }}`
 
 higherprecedence = `{{ (isAdmin ? 'Access granted' : 'Access denied') | uppercase }}`
@@ -87,7 +87,7 @@ transformation = `import {Pipe, PipeTransform} from '@angular/core';
 })
 export class MyCustomTransformationPipe implements PipeTransform {
   transform(value: string): string {
-    return &#x60;My custom transformation of &#36;{value}.&#x60;;
+    return \`My custom transformation of &#36;{value}.\`;
   }
 }`
 
@@ -98,7 +98,7 @@ parameterstransformation = `import {Pipe, PipeTransform} from '@angular/core';
 })
 export class MyCustomTransformationPipe implements PipeTransform {
   transform(value: string, format: string): string {
-    let msg =  &#x60;My custom transformation of &#36;{value}. &#x60;;
+    let msg =  \`My custom transformation of &#36;{value}. \`;
 
     if (format === 'uppercase') {
       return msg.toUpperCase();

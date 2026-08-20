@@ -1,77 +1,61 @@
 import {
+  AfterViewChecked,
   Component,
   ElementRef,
   input,
-  OnDestroy,
-  Renderer2,
   ViewChild,
-  inject,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import hljs from 'highlight.js';
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
 import typescript from 'highlight.js/lib/languages/typescript';
+import xml from 'highlight.js/lib/languages/xml';
+import css from 'highlight.js/lib/languages/css';
+import json from 'highlight.js/lib/languages/json';
+import bash from 'highlight.js/lib/languages/bash';
+
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('html', xml);
+hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('css', css);
+hljs.registerLanguage('json', json);
+hljs.registerLanguage('bash', bash);
+hljs.registerLanguage('sh', bash);
 
 @Component({
   selector: 'app-code-renderer',
-  imports: [],
+  standalone: true,
   templateUrl: './code-renderer.html',
   styleUrl: './code-renderer.scss',
 })
-export class CodeRenderer implements OnDestroy {
+export class CodeRenderer implements AfterViewChecked {
   code = input.required<string>();
-  language = input<string>();
-  links = input<string[]>([]);
-  clickableElements: object[] = [];
-  private router = inject(Router);
-  @ViewChild('tsCode', { static: true }) tsCode!: ElementRef<HTMLElement>;
+  language = input<string>('typescript');
 
-  constructor(private renderer: Renderer2) {}
+  @ViewChild('codeElement') codeElement!: ElementRef<HTMLElement>;
 
-  ngAfterViewInit() {
-    const codeElement = this.tsCode?.nativeElement as HTMLElement | undefined;
-    if (!codeElement) {
+  ngAfterViewChecked(): void {
+    const el = this.codeElement?.nativeElement;
+    if (!el) {
       return;
     }
 
-    hljs.registerLanguage('typescript', typescript);
-    hljs.highlightElement(codeElement);
-
-    const allFunctionSpan = codeElement.querySelectorAll('span.function_');
-    allFunctionSpan.forEach((span: any) => {
-      if (this.links().length > 0) {
-        const spanHas = this.links().includes(span.textContent?.trim());
-        if (spanHas) {
-          this.renderer.setStyle(span, 'cursor', 'pointer');
-          this.renderer.setStyle(span, 'pointer-events', 'auto');
-
-          span.addEventListener('click', (event: Event) => {
-            this.onSpanClick(span.textContent, event);
-          });
-
-          this.clickableElements.push(span);
-        }
-      }
-    });
+    const lang = this.normalizeLanguage(this.language());
+    const html = hljs.highlight(this.code(), { language: lang }).value;
+    el.innerHTML = html;
+    el.className = `language-${lang}`;
   }
 
-  onSpanClick(text: string, event: Event) {
-    switch (text) {
-      case 'map':
-        // this.router.navigate(['/operators/transformationOperators']);
-        this.router.navigate(['/operators/transformationOperators'], { fragment: 'map' });
+  private normalizeLanguage(lang?: string): string {
+    const value = (lang ?? 'typescript').toLowerCase();
 
-        break;
+    if (value === 'ts' || value === 'typescript') return 'typescript';
+    if (value === 'js' || value === 'javascript') return 'javascript';
+    if (value === 'html' || value === 'markup' || value === 'xml') return 'xml';
+    if (value === 'css') return 'css';
+    if (value === 'json') return 'json';
+    if (value === 'bash' || value === 'sh' || value === 'shell') return 'bash';
 
-      default:
-        break;
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.clickableElements) {
-      this.clickableElements.forEach((element: any) => {
-        element.removeEventListener('click', this.onSpanClick);
-      });
-    }
+    return value || 'typescript';
   }
 }

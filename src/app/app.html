@@ -1,6 +1,8 @@
-<header class="header"><app-header></app-header></header>
-<nav class="sidenav"><app-sidebar></app-sidebar></nav>
-<main class="main-container"><router-outlet /></main>
-<dialog class="notification"><app-notification></app-notification></dialog>
+<div class="container">
+  <header class="header"><app-header></app-header></header>
+  <nav class="sidebar"><app-sidebar></app-sidebar></nav>
+  <main class="main-content"><router-outlet /></main>
+  <footer class="footer"><app-footer></app-footer></footer>
+</div>
 <app-loader></app-loader>
-<footer class="footer"><app-footer></app-footer></footer>
+<dialog class="notification"><app-notification></app-notification></dialog>

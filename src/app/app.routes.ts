@@ -22,8 +22,12 @@ export const routes: Routes = [
   {
     path: 'directives',
     loadChildren: () =>
-      import('./topics/directives/directives.routes').then((m) => m.DIRECTIVES_ROUTES),
-
+    import('./topics/directives/directives.routes').then((m) => m.DIRECTIVES_ROUTES),
+    canActivateChild: [kaamBataoGuard, itmePaiseMeItnaHiGuard],
+  },
+  {
+    path: 'apps',
+    loadChildren: () => import('./pages/apps/apps.routes').then((m) => m.APPS_ROUTES),
     canActivateChild: [kaamBataoGuard, itmePaiseMeItnaHiGuard],
   },
 ];

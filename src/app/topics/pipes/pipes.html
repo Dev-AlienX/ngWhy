@@ -269,7 +269,7 @@ export class MyCustomTransformationPipe implements PipeTransform {
 <app-code-renderer [code]="snippits.transformation" language="typeScript"></app-code-renderer>
 
   <h4>Adding parameters to a custom pipe</h4>
-  <p>You can add parameters to your transformation by adding additional parameters to the <code inlineCode >transform</code> method:</p>
+  <p id="purePipes">You can add parameters to your transformation by adding additional parameters to the <code inlineCode >transform</code> method:</p>
 
   <!-- CODE SNIPPET: angular-ts -->
   <!-- <pre><code class="language-typescript">import {Pipe, PipeTransform} from '@angular/core';
@@ -291,7 +291,7 @@ export class MyCustomTransformationPipe implements PipeTransform {
 <app-code-renderer [code]="snippits.parameterstransformation" language="typeScript"></app-code-renderer>
 
   <h4>Detecting change within arrays or objects</h4>
-  <p>When you want a pipe to detect changes within arrays or objects, it must be marked as an impure function by passing the <code inlineCode >pure</code> flag with a value of <code inlineCode >false</code>.</p>
+  <p id="impurePipes">When you want a pipe to detect changes within arrays or objects, it must be marked as an impure function by passing the <code inlineCode >pure</code> flag with a value of <code inlineCode >false</code>.</p>
 
   <div class="vintage-warning">
     <strong>IMPORTANT:</strong> Avoid creating impure pipes unless absolutely necessary, as they can incur a significant performance penalty if used without care.

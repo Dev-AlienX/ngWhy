@@ -5,46 +5,50 @@
 // ==========================================================================
 
 // Base Colors (Raw Hex Codes)
-$asphalt-900: #1E1E1C; // Deepest background
+$asphalt-900: #1e1e1c; // Deepest background
 $asphalt-800: #262623; // Elevated surface
-$asphalt-700: #2E2E2A; // Hover surface
-$cream-100:   #F4F1EA; // Bright text
-$cream-500:   #9E9B93; // Muted text
-$brass-500:   #D49A44; // Primary gold/mustard
-$brass-400:   #E2AF5E; // Lighter gold for hover states
-$oxblood-500: #7A2021; // Deep red accent
+$asphalt-700: #2e2e2a; // Hover surface
+$cream-100: #f4f1ea; // Bright text
+$cream-500: #9e9b93; // Muted text
+$brass-500: #d49a44; // Primary gold/mustard
+$brass-400: #e2af5e; // Lighter gold for hover states
+$oxblood-500: #7a2021; // Deep red accent
 
 // Semantic Variables (Use these in your components)
-$bg-app:          $asphalt-900;
-$bg-surface:      $asphalt-800;
-$bg-surface-hover:$asphalt-700;
+$bg-app: $asphalt-900;
+$bg-surface: $asphalt-800;
+$bg-surface-hover: $asphalt-700;
 
-$text-primary:    $cream-100;
-$text-muted:      $cream-500;
+$text-primary: $cream-100;
+$text-muted: $cream-500;
 
-$accent-primary:  $brass-500;
-$accent-hover:    $brass-400;
-$accent-secondary:$oxblood-500;
+$accent-primary: $brass-500;
+$accent-hover: $brass-400;
+$accent-secondary: $oxblood-500;
 
 // Dynamic Borders & Glows (Leveraging SCSS rgba function)
-$border-subtle:   rgba($cream-100, 0.1);
-$border-focus:    rgba($brass-500, 0.4);
-$glow-primary:    rgba($brass-500, 0.15);
+$border-subtle: rgba($cream-100, 0.1);
+$border-focus: rgba($brass-500, 0.4);
+$glow-primary: rgba($brass-500, 0.15);
 
 // ==========================================================================
 // 2. Typography
 // ==========================================================================
 
 $font-family-heading: 'Playfair Display', Georgia, serif;
-$font-family-body:    'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-$font-family-code:    'Fira Code', 'JetBrains Mono', monospace;
+$font-family-body:
+  'Inter',
+  -apple-system,
+  BlinkMacSystemFont,
+  sans-serif;
+$font-family-code: 'Fira Code', 'JetBrains Mono', monospace;
 
-$font-size-root:   16px; // Base size for rem calculations
-$font-size-base:   1rem; // 16px
-$font-size-sm:     0.85rem; // ~14px
-$font-size-md:     1.1rem; // ~18px (For subtitles)
-$font-size-lg:     1.85rem; // ~30px (For H2)
-$font-size-xl:     3rem; // 48px (For H1)
+$font-size-root: 16px; // Base size for rem calculations
+$font-size-base: 1rem; // 16px
+$font-size-sm: 0.85rem; // ~14px
+$font-size-md: 1.1rem; // ~18px (For subtitles)
+$font-size-lg: 1.85rem; // ~30px (For H2)
+$font-size-xl: 3rem; // 48px (For H1)
 
 $line-height-base: 1.6;
 $line-height-heading: 1.2;
@@ -53,12 +57,12 @@ $line-height-heading: 1.2;
 // 3. Spacing System (Based on 4px/8px increments)
 // ==========================================================================
 
-$spacing-xs:  0.25rem; // 4px
-$spacing-sm:  0.5rem;  // 8px
-$spacing-md:  1rem;    // 16px
-$spacing-lg:  1.5rem;  // 24px
-$spacing-xl:  2rem;    // 32px
-$spacing-xxl: 3.5rem;  // 56px (For section padding)
+$spacing-xs: 0.25rem; // 4px
+$spacing-sm: 0.5rem; // 8px
+$spacing-md: 1rem; // 16px
+$spacing-lg: 1.5rem; // 24px
+$spacing-xl: 2rem; // 32px
+$spacing-xxl: 3.5rem; // 56px (For section padding)
 
 // ==========================================================================
 // 4. Borders & Shadows
@@ -70,3 +74,36 @@ $border-radius-lg: 8px;
 
 $box-shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 $box-shadow-md: 0 10px 30px rgba(0, 0, 0, 0.35); // Deep shadow for cards
+
+:root {
+  --bg-app: #{$asphalt-900};
+  --bg-surface: #{$asphalt-800};
+  --bg-surface-hover: #{$asphalt-700};
+
+  --text-primary: #{$cream-100};
+  --text-muted: #{$cream-500};
+
+  --accent-primary: #{$brass-500};
+  --accent-hover: #{$brass-400};
+  --accent-secondary: #{$oxblood-500};
+
+  // We can use SCSS rgba() function here, and it will output a static rgba value to CSS
+  --border-subtle: #{rgba($cream-100, 0.1)};
+  --border-focus: #{rgba($brass-500, 0.4)};
+  --glow-primary: #{rgba($brass-500, 0.15)};
+
+  // Typography mapping
+  --font-family-heading: 'Playfair Display', Georgia, serif;
+  --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-code: 'Fira Code', 'JetBrains Mono', monospace;
+
+  // Palette
+  --color-bg-app: #{$asphalt-900};
+  --color-bg-surface: #{$asphalt-800};
+  --color-accent-primary: #{$brass-500};
+  --color-accent-secondary: #{$oxblood-500};
+  --color-text-primary: #{$cream-100};
+  --color-border-subtle: #{rgba($cream-100, 0.1)};
+
+  // Typography
+}

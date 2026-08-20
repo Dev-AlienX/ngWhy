@@ -1,0 +1,29 @@
+@use '../../../../asstes/scss/var' as vars;
+ul {
+  list-style-type: none;
+  padding-inline-start: unset;
+}
+li {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+a {
+  text-decoration: none;
+  padding: vars.$spacing-sm;
+  border: 1px solid transparent;
+  border-radius: vars.$border-radius-md;
+  color: var(--color-light-text);
+  display: block;
+  &:hover {
+    background-color: vars.$bg-surface-hover;
+    border: 1px solid vars.$text-muted;
+  }
+}
+
+.subnav{
+  margin-left: 10px;
+  border-left: 1px solid vars.$text-muted;
+  a {
+    margin-left: 10px;
+  }
+}

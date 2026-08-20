@@ -1,0 +1,23 @@
+@use '../../../../asstes/scss/var' as vari;
+
+:host {
+  display: block;
+}
+
+.code-renderer {
+  margin: vari.$spacing-md 0;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  background: #282c34;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.code-renderer code {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
